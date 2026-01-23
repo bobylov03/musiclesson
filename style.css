@@ -650,7 +650,7 @@ body {
 }
 
 .gallery-column {
-    width: 100%;
+    width: 80%;
 }
 
 .gallery-column h3 {
@@ -1530,3 +1530,4 @@ body {
         font-size: 0.9rem;
     }
 }
+gallery-column

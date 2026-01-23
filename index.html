@@ -14,6 +14,100 @@
     <link rel="icon" type="image/x-icon" href="https://img.icons8.com/color/48/000000/music-notes.png">
 </head>
 <body>
+    <!-- Modal for Booking -->
+    <div class="modal" id="bookingModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-calendar-check"></i> Book Your First Lesson</h3>
+                <button class="close-modal" id="closeModal" aria-label="Close modal">&times;</button>
+            </div>
+            
+            <div class="modal-body">
+                <div class="modal-form" id="bookingForm">
+                    <form id="lessonBookingForm">
+                        <div class="form-group">
+                            <label for="studentName">Student Name *</label>
+                            <input type="text" id="studentName" name="studentName" required placeholder="Enter student's full name">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="parentName">Parent Name (if applicable)</label>
+                            <input type="text" id="parentName" name="parentName" placeholder="Enter parent's name">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Email Address *</label>
+                            <input type="email" id="email" name="email" required placeholder="your@email.com">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="phone">Phone Number *</label>
+                            <input type="tel" id="phone" name="phone" required placeholder="(123) 456-7890">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="instrument">Instrument *</label>
+                            <select id="instrument" name="instrument" required>
+                                <option value="" disabled selected>Select an instrument</option>
+                                <option value="piano">Piano</option>
+                                <option value="violin">Violin</option>
+                                <option value="group">Group Lesson</option>
+                                <option value="children">Music for Young Children (3-6 years)</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="location">Preferred Location *</label>
+                            <select id="location" name="location" required>
+                                <option value="" disabled selected>Select location</option>
+                                <option value="bracebridge">Bracebridge</option>
+                                <option value="huntsville">Huntsville</option>
+                                <option value="online">Online Lesson</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="studentAge">Student Age *</label>
+                            <input type="number" id="studentAge" name="studentAge" required placeholder="e.g., 8" min="3" max="99">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="experience">Experience Level *</label>
+                            <select id="experience" name="experience" required>
+                                <option value="" disabled selected>Select level</option>
+                                <option value="beginner">Beginner (first time)</option>
+                                <option value="some">Some experience (1-2 years)</option>
+                                <option value="intermediate">Intermediate (2-5 years)</option>
+                                <option value="advanced">Advanced (5+ years)</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="schedule">Preferred Days/Times</label>
+                            <textarea id="schedule" name="schedule" placeholder="e.g., Weekdays after 4pm, Saturday mornings"></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="goals">Musical Goals</label>
+                            <textarea id="goals" name="goals" placeholder="What would you like to achieve? (e.g., perform in recital, learn specific pieces, prepare for exams)"></textarea>
+                        </div>
+                        
+                        <button type="submit" class="modal-submit">
+                            <i class="fas fa-paper-plane"></i> Send Booking Request
+                        </button>
+                    </form>
+                </div>
+                
+                <div class="modal-message" id="successMessage">
+                    <i class="fas fa-check-circle"></i>
+                    <h4>Booking Request Sent!</h4>
+                    <p>Thank you for your interest in lessons! Anna will contact you within 24-48 hours to confirm your booking.</p>
+                    <p>A confirmation email has been sent to <span id="userEmail"></span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Header & Navigation -->
     <header class="header">
         <div class="container">
@@ -29,7 +123,7 @@
                 <a href="#gallery">Gallery</a>
                 <a href="#contact">Contact</a>
             </nav>
-            <button class="menu-toggle" id="menuToggle">
+            <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
                 <i class="fas fa-bars"></i>
             </button>
         </div>
@@ -44,12 +138,15 @@
                 <p class="subtitle">Professional Violin & Piano Lessons in <strong>Muskoka</strong></p>
                 <p class="hero-text">Personalized music education for children and adults, tailored to inspire confidence, creativity, and lifelong passion through performance.</p>
                 <div class="cta-buttons">
-                    <a href="#contact" class="btn btn-primary">Book a Lesson</a>
-                    <a href="#about" class="btn btn-secondary">Learn More</a>
+                    <button class="btn btn-primary" id="bookLessonBtn">Book a Lesson</button>
                 </div>
                 <div class="location-badges">
-                    <span class="badge"><i class="fas fa-map-marker-alt"></i> Bracebridge</span>
-                    <span class="badge"><i class="fas fa-map-marker-alt"></i> Huntsville</span>
+                    <button class="badge location-btn" id="bracebridgeMap" aria-label="Open Bracebridge in Google Maps">
+                        <i class="fas fa-map-marker-alt"></i> Bracebridge
+                    </button>
+                    <button class="badge location-btn" id="huntsvilleMap" aria-label="Open Huntsville in Google Maps">
+                        <i class="fas fa-map-marker-alt"></i> Huntsville
+                    </button>
                 </div>
             </div>
         </div>
@@ -87,12 +184,50 @@
                 <div class="performance-text">
                     <h3>Build Confidence Through Performance</h3>
                     <p>At <strong>Shine On Stage</strong>, we believe regular performance opportunities are essential for musical growth. Students showcase their progress through:</p>
-                    <ul>
-                        <li><i class="fas fa-music"></i> <strong>Bi-annual recitals</strong> for family and friends</li>
-                        <li><i class="fas fa-users"></i> <strong>Community events</strong> throughout Muskoka</li>
-                        <li><i class="fas fa-trophy"></i> <strong>Festival preparations</strong> and competitions</li>
-                        <li><i class="fas fa-glass-cheers"></i> <strong>Informal gatherings</strong> с fellow students</li>
-                    </ul>
+                    
+                    <!-- Improved layout for mobile -->
+                    <div class="performance-features">
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-music"></i>
+                            </div>
+                            <div class="feature-content">
+                                <h4>Bi-annual recitals</h4>
+                                <p>For family and friends</p>
+                            </div>
+                        </div>
+                        
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="feature-content">
+                                <h4>Community events</h4>
+                                <p>Throughout Muskoka</p>
+                            </div>
+                        </div>
+                        
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-trophy"></i>
+                            </div>
+                            <div class="feature-content">
+                                <h4>Festival preparations</h4>
+                                <p>And competitions</p>
+                            </div>
+                        </div>
+                        
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-glass-cheers"></i>
+                            </div>
+                            <div class="feature-content">
+                                <h4>Informal gatherings</h4>
+                                <p>With fellow students</p>
+                            </div>
+                        </div>
+                    </div>
+                    
                     <p>These experiences help students overcome stage fright, build self-esteem, and develop poise that extends beyond music into all areas of life.</p>
                     <p>Whether your goal is professional musicianship or personal enjoyment, learning to shine on stage is a skill that lasts a lifetime.</p>
                 </div>
@@ -170,7 +305,7 @@
         </div>
     </section>
 
-    <!-- Reviews Section (NEW) -->
+    <!-- Reviews Section -->
     <section class="section reviews" id="reviews">
         <div class="container">
             <h2 class="section-title">Student & Parent Reviews</h2>
@@ -205,7 +340,7 @@
         </div>
     </section>
 
-    <!-- Gallery Section - UPDATED LAYOUT -->
+    <!-- Gallery Section -->
     <section class="section gallery" id="gallery">
         <div class="container">
             <h2 class="section-title">Performance Gallery</h2>
@@ -221,7 +356,6 @@
                                 <div class="slide active">
                                     <img src="gallery.JPEG" alt="My teaching studio" loading="lazy">
                                 </div>
-                    
                                 <div class="slide">
                                     <img src="gallery2.JPEG" alt="Student receiving applause" loading="lazy">
                                 </div>
@@ -247,14 +381,13 @@
                     </div>
                 </div>
                 
-                <!-- YouTube Video (Right Column) - UPDATED -->
+                <!-- YouTube Video (Right Column) -->
                 <div class="gallery-column">
                     <div class="video-container">
                         <h3><i class="fab fa-youtube"></i> Featured Performance</h3>
                         <div class="video-wrapper">
-                            <!-- UPDATED YouTube embed - working example -->
                             <iframe 
-                                src="https://www.youtube.com/embed/hNJKFNiQKvM" 
+                                src="https://www.youtube.com/watch?v=zS8FKFdV8TM" 
                                 title="Violin Performance - Vivaldi" 
                                 frameborder="0" 
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
@@ -282,7 +415,7 @@
                     <p><i class="fas fa-clock"></i> <strong>Availability:</strong> Weekdays & Weekends, flexible scheduling</p>
                     <p><i class="fas fa-music"></i> <strong>Studio:</strong> Shine On Stage Music Lessons</p>
                     <div class="whatsapp">
-                        <a href="https://wa.me/1234567890?text=Hello%20Anna,%20I'm%20interested%20in%20music%20lessons%20at%20Shine%20On%20Stage!" class="btn-whatsapp" target="_blank">
+                        <a href="https://wa.me/+14379873848?text=Hello%20Anna,%20I'm%20interested%20in%20music%20lessons%20at%20Shine%20On%20Stage!" class="btn-whatsapp" target="_blank">
                             <i class="fab fa-whatsapp"></i> Message on WhatsApp
                         </a>
                         <p class="small-note">Click to start a conversation directly in the app.</p>
@@ -331,9 +464,9 @@
                     <a href="#contact">Contact</a>
                 </div>
                 <div class="footer-social">
-                    <a href="#"><i class="fab fa-facebook"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-youtube"></i></a>
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
                 </div>
             </div>
             <p class="copyright">&copy; 2024 Shine On Stage Music Lessons. All rights reserved. | Designed with passion for music education.</p>
@@ -342,6 +475,160 @@
 
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
-    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Modal functionality
+            const modal = document.getElementById('bookingModal');
+            const bookLessonBtn = document.getElementById('bookLessonBtn');
+            const closeModal = document.getElementById('closeModal');
+            const bookingForm = document.getElementById('lessonBookingForm');
+            const successMessage = document.getElementById('successMessage');
+            const bookingFormContainer = document.getElementById('bookingForm');
+            const userEmailSpan = document.getElementById('userEmail');
+            
+            // Open modal when clicking "Book a Lesson"
+            bookLessonBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                modal.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+            });
+            
+            // Close modal when clicking X
+            closeModal.addEventListener('click', function() {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            });
+            
+            // Close modal when clicking outside
+            window.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    modal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }
+            });
+            
+            // Close modal with Escape key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && modal.style.display === 'flex') {
+                    modal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }
+            });
+            
+            // Form submission
+            bookingForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Get form data
+                const formData = new FormData(bookingForm);
+                const data = Object.fromEntries(formData);
+                
+                // Display success message
+                bookingFormContainer.style.display = 'none';
+                successMessage.style.display = 'block';
+                userEmailSpan.textContent = data.email;
+                
+                // Prepare email data (for demonstration)
+                const emailData = {
+                    to: 'annabobylyova@gmail.com',
+                    subject: `New Lesson Booking Request from ${data.studentName}`,
+                    body: `Student: ${data.studentName}
+Age: ${data.studentAge}
+Email: ${data.email}
+Phone: ${data.phone}
+Instrument: ${data.instrument}
+Location: ${data.location}
+Experience: ${data.experience}
+Goals: ${data.goals || 'Not specified'}
+Schedule: ${data.schedule || 'Not specified'}`
+                };
+                
+                // Log email data (in production, this would be sent to a backend)
+                console.log('Booking request:', emailData);
+                
+                // Reset form after 5 seconds and close modal
+                setTimeout(function() {
+                    bookingForm.reset();
+                    bookingFormContainer.style.display = 'block';
+                    successMessage.style.display = 'none';
+                    modal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }, 5000);
+            });
+            
+            // Google Maps functionality for location badges
+            const bracebridgeBtn = document.getElementById('bracebridgeMap');
+            const huntsvilleBtn = document.getElementById('huntsvilleMap');
+            
+            bracebridgeBtn.addEventListener('click', function() {
+                window.open('https://www.google.com/maps/place/Bracebridge,+ON/', '_blank');
+            });
+            
+            huntsvilleBtn.addEventListener('click', function() {
+                window.open('https://www.google.com/maps/place/Huntsville,+ON/', '_blank');
+            });
+            
+            // Simple slider functionality
+            const slider = document.getElementById('simpleSlider');
+            const slides = slider.querySelectorAll('.slide');
+            const dots = document.querySelectorAll('.dot');
+            const prevBtn = document.querySelector('.slider-prev');
+            const nextBtn = document.querySelector('.slider-next');
+            let currentSlide = 0;
+            
+            function showSlide(n) {
+                // Reset all slides
+                slides.forEach(slide => slide.classList.remove('active'));
+                dots.forEach(dot => dot.classList.remove('active'));
+                
+                // Handle wrap-around
+                if (n >= slides.length) currentSlide = 0;
+                if (n < 0) currentSlide = slides.length - 1;
+                
+                // Show current slide
+                slides[currentSlide].classList.add('active');
+                dots[currentSlide].classList.add('active');
+            }
+            
+            prevBtn.addEventListener('click', function() {
+                currentSlide--;
+                showSlide(currentSlide);
+            });
+            
+            nextBtn.addEventListener('click', function() {
+                currentSlide++;
+                showSlide(currentSlide);
+            });
+            
+            // Dot navigation
+            dots.forEach((dot, index) => {
+                dot.addEventListener('click', function() {
+                    currentSlide = index;
+                    showSlide(currentSlide);
+                });
+            });
+            
+            // Auto-advance slider
+            setInterval(function() {
+                currentSlide++;
+                showSlide(currentSlide);
+            }, 5000);
+            
+            // Mobile menu toggle
+            const menuToggle = document.getElementById('menuToggle');
+            const navbar = document.querySelector('.navbar');
+            
+            menuToggle.addEventListener('click', function() {
+                navbar.classList.toggle('active');
+            });
+            
+            // Close mobile menu when clicking a link
+            document.querySelectorAll('.navbar a').forEach(link => {
+                link.addEventListener('click', function() {
+                    navbar.classList.remove('active');
+                });
+            });
+        });
+    </script>
 </body>
 </html>

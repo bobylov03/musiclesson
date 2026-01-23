@@ -269,11 +269,16 @@ body {
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.2);
     transition: all 0.3s ease;
+    cursor: pointer;
+    border: none;
+    color: white;
+    font-family: 'Inter', sans-serif;
 }
 
 .badge:hover {
     background: rgba(255, 255, 255, 0.25);
     transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
 .badge i {
@@ -352,7 +357,7 @@ body {
     transform: translateY(-10px);
 }
 
-/* Performance Section */
+/* Performance Section - UPDATED */
 .performance-content {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -383,24 +388,61 @@ body {
     margin-bottom: 1.8rem;
 }
 
-.performance-text ul {
-    list-style: none;
-    margin: 25px 0 30px;
+/* Performance Features - NEW STYLES */
+.performance-features {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+    margin: 30px 0 35px;
 }
 
-.performance-text li {
-    margin-bottom: 15px;
+.feature-item {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    padding: 25px;
+    border-radius: 15px;
     display: flex;
-    align-items: flex-start;
-    gap: 15px;
-    font-size: 1.1rem;
+    align-items: center;
+    gap: 20px;
+    transition: all 0.3s ease;
+    border: 1px solid #e9ecef;
 }
 
-.performance-text li i {
-    color: #f1c40f;
-    font-size: 1.2rem;
-    margin-top: 4px;
+.feature-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+    border-color: #8e44ad;
+}
+
+.feature-icon {
+    background: linear-gradient(135deg, #8e44ad 0%, #9b59b6 100%);
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     flex-shrink: 0;
+    color: white;
+    font-size: 1.5rem;
+    box-shadow: 0 10px 20px rgba(142, 68, 173, 0.2);
+}
+
+.feature-content {
+    flex: 1;
+}
+
+.feature-content h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    margin-bottom: 8px;
+    color: #2c3e50;
+}
+
+.feature-content p {
+    font-size: 1rem;
+    color: #7f8c8d;
+    line-height: 1.6;
+    margin: 0;
 }
 
 /* ============================================
@@ -1075,6 +1117,186 @@ body {
 }
 
 /* ============================================
+   MODAL STYLES
+   ============================================ */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 2000;
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.3s ease;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 2.5rem;
+    border-radius: 15px;
+    max-width: 500px;
+    width: 100%;
+    max-height: 85vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    animation: slideUp 0.4s ease;
+    position: relative;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid #f0f0f0;
+}
+
+.modal-header h3 {
+    margin: 0;
+    color: #2c3e50;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.close-modal {
+    background: none;
+    border: none;
+    font-size: 1.8rem;
+    cursor: pointer;
+    color: #7f8c8d;
+    transition: color 0.3s ease;
+    line-height: 1;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.close-modal:hover {
+    color: #e74c3c;
+    background-color: #f8f9fa;
+}
+
+.modal-form .form-group {
+    margin-bottom: 1.2rem;
+}
+
+.modal-form label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #34495e;
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+
+.modal-form input,
+.modal-form select,
+.modal-form textarea {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    box-sizing: border-box;
+    background-color: #fafafa;
+}
+
+.modal-form input:focus,
+.modal-form select:focus,
+.modal-form textarea:focus {
+    outline: none;
+    border-color: #8e44ad;
+    box-shadow: 0 0 0 3px rgba(142, 68, 173, 0.1);
+    background-color: white;
+}
+
+.modal-form textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.modal-submit {
+    width: 100%;
+    padding: 1rem;
+    background: linear-gradient(135deg, #8e44ad, #9b59b6);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.modal-submit:hover {
+    background: linear-gradient(135deg, #7d3c98, #8e44ad);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(142, 68, 173, 0.3);
+}
+
+.modal-submit:active {
+    transform: translateY(0);
+}
+
+.modal-message {
+    display: none;
+    text-align: center;
+    padding: 2rem;
+}
+
+.modal-message i {
+    font-size: 3rem;
+    color: #27ae60;
+    margin-bottom: 1rem;
+}
+
+.modal-message h4 {
+    color: #2c3e50;
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
+}
+
+.modal-message p {
+    color: #7f8c8d;
+    line-height: 1.6;
+    margin-bottom: 0.5rem;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ============================================
    RESPONSIVE DESIGN UPDATES
    ============================================ */
 
@@ -1099,6 +1321,11 @@ body {
     
     .price {
         font-size: 2.1rem;
+    }
+    
+    .performance-features {
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
     }
 }
 
@@ -1131,6 +1358,27 @@ body {
     
     .subtitle {
         font-size: 1.3rem;
+    }
+    
+    /* Performance Features Tablet */
+    .performance-features {
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+    }
+    
+    .feature-item {
+        padding: 20px;
+        gap: 15px;
+    }
+    
+    .feature-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 1.3rem;
+    }
+    
+    .feature-content h4 {
+        font-size: 1.2rem;
     }
     
     /* Pricing cards - 2 в ряд на планшете */
@@ -1181,6 +1429,12 @@ body {
     .footer-logo {
         text-align: center;
         align-items: center;
+    }
+    
+    /* Modal Tablet */
+    .modal-content {
+        max-width: 500px;
+        padding: 2rem;
     }
 }
 
@@ -1323,8 +1577,25 @@ body {
         font-size: 1.8rem;
     }
     
-    .performance-text li {
-        font-size: 1rem;
+    /* Performance Features Mobile */
+    .performance-features {
+        grid-template-columns: 1fr;
+        gap: 15px;
+        margin: 25px 0 30px;
+    }
+    
+    .feature-item {
+        padding: 20px;
+    }
+    
+    .feature-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 1.3rem;
+    }
+    
+    .feature-content h4 {
+        font-size: 1.2rem;
     }
     
     /* Gallery Mobile - FIXED */
@@ -1472,6 +1743,26 @@ body {
         padding: 16px 18px;
         font-size: 1rem;
     }
+    
+    /* Modal Mobile */
+    .modal {
+        padding: 15px;
+    }
+    
+    .modal-content {
+        padding: 1.5rem;
+        max-height: 90vh;
+    }
+    
+    .modal-header h3 {
+        font-size: 1.3rem;
+    }
+    
+    .close-modal {
+        width: 25px;
+        height: 25px;
+        font-size: 1.5rem;
+    }
 }
 
 /* Small Mobile (480px and below) */
@@ -1509,6 +1800,31 @@ body {
         padding: 20px;
         margin-left: 15px;
         margin-right: 15px;
+    }
+    
+    /* Performance Features Small Mobile */
+    .performance-features {
+        gap: 12px;
+    }
+    
+    .feature-item {
+        padding: 18px;
+        gap: 12px;
+    }
+    
+    .feature-icon {
+        width: 45px;
+        height: 45px;
+        font-size: 1.2rem;
+    }
+    
+    .feature-content h4 {
+        font-size: 1.1rem;
+        margin-bottom: 5px;
+    }
+    
+    .feature-content p {
+        font-size: 0.9rem;
     }
     
     /* Gallery Small Mobile - FIXED */
@@ -1572,5 +1888,30 @@ body {
     .copyright {
         padding: 20px 15px 0;
         font-size: 0.9rem;
+    }
+    
+    /* Modal Small Mobile */
+    .modal-content {
+        padding: 1.25rem;
+    }
+    
+    .modal-header h3 {
+        font-size: 1.2rem;
+    }
+    
+    .modal-form label {
+        font-size: 0.9rem;
+    }
+    
+    .modal-form input,
+    .modal-form select,
+    .modal-form textarea {
+        padding: 0.7rem 0.9rem;
+        font-size: 0.95rem;
+    }
+    
+    .modal-submit {
+        padding: 0.9rem;
+        font-size: 1rem;
     }
 }

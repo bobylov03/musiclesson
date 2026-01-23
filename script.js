@@ -17,17 +17,39 @@ const swiper = new Swiper('.mySwiper', {
     fadeEffect: {
         crossFade: true
     },
+    breakpoints: {
+        320: {
+            navigation: {
+                nextEl: null,
+                prevEl: null
+            }
+        },
+        768: {
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev'
+            }
+        }
+    }
 });
 
 // Mobile Menu Toggle
 const menuToggle = document.getElementById('menuToggle');
 const navbar = document.querySelector('.navbar');
+const body = document.body;
 
 menuToggle.addEventListener('click', () => {
     navbar.classList.toggle('active');
     menuToggle.innerHTML = navbar.classList.contains('active') 
         ? '<i class="fas fa-times"></i>' 
         : '<i class="fas fa-bars"></i>';
+    
+    // Prevent scrolling when menu is open
+    if (navbar.classList.contains('active')) {
+        body.style.overflow = 'hidden';
+    } else {
+        body.style.overflow = 'auto';
+    }
 });
 
 // Close menu when clicking a link
@@ -35,7 +57,19 @@ document.querySelectorAll('.navbar a').forEach(link => {
     link.addEventListener('click', () => {
         navbar.classList.remove('active');
         menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+        body.style.overflow = 'auto';
     });
+});
+
+// Close menu when clicking outside
+document.addEventListener('click', (e) => {
+    if (navbar.classList.contains('active') && 
+        !navbar.contains(e.target) && 
+        !menuToggle.contains(e.target)) {
+        navbar.classList.remove('active');
+        menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+        body.style.overflow = 'auto';
+    }
 });
 
 // Contact Form Submission
@@ -70,13 +104,20 @@ if (contactForm) {
 // Smooth scrolling for anchor links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
-        e.preventDefault();
-        
         const targetId = this.getAttribute('href');
         if (targetId === '#') return;
         
         const targetElement = document.querySelector(targetId);
         if (targetElement) {
+            e.preventDefault();
+            
+            // Close mobile menu if open
+            if (navbar.classList.contains('active')) {
+                navbar.classList.remove('active');
+                menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+                body.style.overflow = 'auto';
+            }
+            
             window.scrollTo({
                 top: targetElement.offsetTop - 80,
                 behavior: 'smooth'
@@ -84,15 +125,6 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         }
     });
 });
-
-// WhatsApp link handler
-const whatsappLink = document.querySelector('.btn-whatsapp');
-if (whatsappLink) {
-    // You should replace the phone number with your actual WhatsApp number
-    // Currently using a placeholder: https://wa.me/1234567890
-    // Format: https://wa.me/1XXXXXXXXXX (country code + number without + or 0)
-    // Example for Canada: https://wa.me/14165551234
-}
 
 // Sticky header on scroll
 window.addEventListener('scroll', () => {
@@ -102,4 +134,28 @@ window.addEventListener('scroll', () => {
     } else {
         header.style.boxShadow = '0 2px 15px rgba(0,0,0,0.08)';
     }
+});
+
+// Update Swiper on window resize
+window.addEventListener('resize', function() {
+    if (swiper) {
+        swiper.update();
+    }
+});
+
+// Lazy loading for images
+document.addEventListener('DOMContentLoaded', function() {
+    const images = document.querySelectorAll('img');
+    
+    const imageObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const img = entry.target;
+                img.src = img.getAttribute('src');
+                observer.unobserve(img);
+            }
+        });
+    });
+    
+    images.forEach(img => imageObserver.observe(img));
 });

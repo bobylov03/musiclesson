@@ -62,6 +62,7 @@
                                 <option value="" disabled selected>Select location</option>
                                 <option value="bracebridge">Bracebridge</option>
                                 <option value="huntsville">Huntsville</option>
+                                <option value="gravenhurst">Gravenhurst</option>
                                 <option value="online">Online Lesson</option>
                             </select>
                         </div>
@@ -146,6 +147,9 @@
                     </button>
                     <button class="badge location-btn" id="huntsvilleMap" aria-label="Open Huntsville in Google Maps">
                         <i class="fas fa-map-marker-alt"></i> Huntsville
+                    </button>
+                    <button class="badge location-btn" id="gravenhurstMap" aria-label="Open Gravenhurst in Google Maps">
+                        <i class="fas fa-map-marker-alt"></i> Gravenhurst
                     </button>
                 </div>
             </div>
@@ -566,13 +570,16 @@ Schedule: ${data.schedule || 'Not specified'}`
             // Google Maps functionality for location badges
             const bracebridgeBtn = document.getElementById('bracebridgeMap');
             const huntsvilleBtn = document.getElementById('huntsvilleMap');
-            
+            const gravenhurstBtn = document.getElementById('gravenhurstMap');
             bracebridgeBtn.addEventListener('click', function() {
                 window.open('https://www.google.com/maps/place/Bracebridge,+ON/', '_blank');
             });
             
             huntsvilleBtn.addEventListener('click', function() {
                 window.open('https://www.google.com/maps/place/Huntsville,+ON/', '_blank');
+            });
+            gravenhurstBtn.addEventListener('click', function() {
+                window.open('https://www.google.com/maps/place/Gravenhurst,+ON/', '_blank');
             });
             
             // Simple slider functionality

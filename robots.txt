@@ -1,3 +1,7 @@
 User-agent: *
 Allow: /
-Sitemap: https://shineonstage.ca/
+Disallow: /admin/
+Disallow: /private/
+Disallow: /cgi-bin/
+
+Sitemap: https://shineonstage.ca/sitemap.xml

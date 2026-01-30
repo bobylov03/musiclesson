@@ -6,11 +6,11 @@
     
     <!-- SEO Meta Tags -->
     <title>Music Lessons in Muskoka | Violin & Piano with Anna Bobylyova | Shine On Stage</title>
-    <meta name="description" content="Professional music lessons in Bracebridge & Huntsville, Muskoka. Piano & violin for all ages. Performance-focused teaching. Book your first lesson today!">
-    <meta name="keywords" content="music lessons, piano lessons, violin lessons, Muskoka, Bracebridge, Huntsville, Gravenhurst, music teacher, children music lessons, Anna Bobylyova">
+    <meta name="description" content="Professional music lessons in Bracebridge, Muskoka. Piano & violin for all ages. Performance-focused teaching. Book your first lesson today!">
+    <meta name="keywords" content="music lessons, piano lessons, violin lessons, piano teacher, violin teacher, Muskoka, Bracebridge, music teacher, children music lessons, Anna Bobylyova">
     <meta name="author" content="Anna Bobylyova">
     <meta name="geo.region" content="CA-ON">
-    <meta name="geo.placename" content="Muskoka">
+    <meta name="geo.placename" content="Bracebridge, Muskoka">
     <meta name="google-site-verification" content="kPygVqrV1t5fHJ5fU1sTis5h8q_-UNFlVyxQKCt4poE" />
     <meta name="geo.position" content="45.033409;-79.315456">
     <meta name="ICBM" content="45.033409, -79.315456">
@@ -25,7 +25,7 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://shineonstage.ca">
     <meta property="og:title" content="Music Lessons in Muskoka | Violin & Piano with Anna Bobylyova">
-    <meta property="og:description" content="Professional music lessons in Bracebridge & Huntsville, Muskoka. Piano & violin for all ages.">
+    <meta property="og:description" content="Professional music lessons in Bracebridge, Muskoka. Piano & violin for all ages.">
     <meta property="og:image" content="https://shineonstage.ca/main.JPG">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
@@ -34,7 +34,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Music Lessons in Muskoka">
-    <meta name="twitter:description" content="Professional music lessons in Bracebridge & Huntsville, Muskoka">
+    <meta name="twitter:description" content="Professional music lessons in Bracebridge, Muskoka">
     <meta name="twitter:image" content="https://shineonstage.ca/main.JPG">
     
     <!-- Structured Data - ИСПРАВЛЕННАЯ ВЕРСИЯ -->
@@ -43,13 +43,15 @@
         "@context": "https://schema.org",
         "@type": "MusicSchool",
         "name": "Shine On Stage | Professional Music Lessons in Muskoka",
-        "description": "Violin and piano lessons with Anna Bobylyova in Bracebridge and Huntsville, Muskoka. Professional music education for all ages.",
+        "description": "Violin and piano lessons with Anna Bobylyova in Bracebridge, Muskoka. Professional music education for all ages.",
         "url": "https://shineonstage.ca/",
         "logo": "https://img.icons8.com/color/48/000000/music-notes.png",
         "address": {
             "@type": "PostalAddress",
+            "streetAddress": "14 Manitoba Street",
             "addressLocality": "Bracebridge",
             "addressRegion": "ON",
+            "postalCode": "P1L 2B8",
             "addressCountry": "Canada"
         },
         "image": "https://shineonstage.ca/main.JPG",
@@ -60,7 +62,8 @@
         "founder": {
             "@type": "Person",
             "name": "Anna Bobylyova",
-            "description": "Professional music educator with over two decades of experience"
+            "description": "Professional music educator with over two decades of experience",
+            "knowsAbout": ["Violin Lessons", "Piano Lessons", "Music Education", "Music Performance"]
         },
         "areaServed": {
             "@type": "GeoCircle",
@@ -69,7 +72,7 @@
                 "latitude": 45.033409,
                 "longitude": -79.315456
             },
-            "geoRadius": "50000"
+            "geoRadius": "40000"
         },
         "offers": {
             "@type": "Offer",
@@ -77,6 +80,49 @@
             "priceCurrency": "CAD",
             "availability": "https://schema.org/InStock"
         }
+    }
+    </script>
+    
+    <!-- Structured Data for Local Business -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        "name": "Shine On Stage Music Lessons",
+        "image": "https://shineonstage.ca/main.JPG",
+        "description": "Professional violin and piano lessons in Bracebridge, Muskoka",
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "14 Manitoba Street",
+            "addressLocality": "Bracebridge",
+            "addressRegion": "ON",
+            "postalCode": "P1L 2B8",
+            "addressCountry": "CA"
+        },
+        "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 45.033409,
+            "longitude": -79.315456
+        },
+        "url": "https://shineonstage.ca/",
+        "telephone": "+14379873848",
+        "priceRange": "$$",
+        "openingHoursSpecification": [
+            {
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": [
+                    "Monday",
+                    "Tuesday",
+                    "Wednesday",
+                    "Thursday",
+                    "Friday",
+                    "Saturday",
+                    "Sunday"
+                ],
+                "opens": "09:00",
+                "closes": "20:00"
+            }
+        ]
     }
     </script>
     
@@ -136,9 +182,8 @@
                             <label for="location">Preferred Location *</label>
                             <select id="location" name="location" required>
                                 <option value="" disabled selected>Select location</option>
-                                <option value="bracebridge">Bracebridge</option>
-                                <option value="huntsville">Huntsville</option>
-                                <option value="gravenhurst">Gravenhurst</option>
+                                <option value="studio">Studio - 14 Manitoba St, Bracebridge</option>
+                                <option value="in-home">In-Home Lesson (within 40km radius)</option>
                                 <option value="online">Online Lesson</option>
                             </select>
                         </div>
@@ -212,21 +257,18 @@
         <div class="container">
             <div class="hero-content">
                 <h1>Discover the Joy of Music in Muskoka</h1>
-                <p class="subtitle">Professional Violin & Piano Lessons in <strong>Bracebridge, Huntsville & Gravenhurst</strong></p>
+                <p class="subtitle">Professional Violin & Piano Lessons in <strong>Bracebridge</strong></p>
                 <p class="hero-text">Personalized music education for children and adults, tailored to inspire confidence, creativity, and lifelong passion through performance.</p>
                 <div class="cta-buttons">
                     <button class="btn btn-primary" id="bookLessonBtn">Book a Music Lesson</button>
                 </div>
                 <div class="location-badges">
-                    <button class="badge location-btn" id="bracebridgeMap" aria-label="Open Bracebridge in Google Maps">
-                        <i class="fas fa-map-marker-alt"></i> Bracebridge Music Lessons
+                    <button class="badge location-btn" id="bracebridgeMap" aria-label="Open studio location in Google Maps">
+                        <i class="fas fa-map-marker-alt"></i> Studio: 14 Manitoba St, Bracebridge
                     </button>
-                    <button class="badge location-btn" id="huntsvilleMap" aria-label="Open Huntsville in Google Maps">
-                        <i class="fas fa-map-marker-alt"></i> Huntsville Music Lessons
-                    </button>
-                    <button class="badge location-btn" id="gravenhurstMap" aria-label="Open Gravenhurst in Google Maps">
-                        <i class="fas fa-map-marker-alt"></i> Gravenhurst Music Lessons
-                    </button>
+                    <p class="mobile-lessons-note">
+                        <i class="fas fa-car"></i> In-home lessons available within 40km radius of Bracebridge
+                    </p>
                 </div>
             </div>
         </div>
@@ -377,9 +419,9 @@
                 </div>
             </div>
             <div class="additional-info">
-                <p><i class="fas fa-car"></i> <strong>In-home lessons</strong> available in Bracebridge and Huntsville for a reasonable additional travel fee.</p>
+                <p><i class="fas fa-map-marker-alt"></i> <strong>Studio Location:</strong> 14 Manitoba Street, Bracebridge (downtown)</p>
+                <p><i class="fas fa-car"></i> <strong>In-home lessons</strong> available within 40km radius of Bracebridge for a reasonable additional travel fee.</p>
                 <p><i class="fas fa-envelope"></i> <strong>Homework assignments</strong> are sent by email for easy follow-up and organization.</p>
-                <p><i class="fas fa-calendar-alt"></i> <strong>Flexible scheduling</strong> available on weekdays and weekends.</p>
                 <p><i class="fas fa-graduation-cap"></i> <strong>Performance opportunities</strong> included in all lesson packages.</p>
             </div>
         </div>
@@ -394,17 +436,17 @@
             <div class="reviews-grid">
                 <div class="review-item" itemscope itemtype="https://schema.org/Review">
                     <div class="review-image">
-                        <img src="review1.jpg" alt="Review from parent of music student" loading="lazy" width="400" height="300">
+                        <img src="review1.jpg" alt="Review from parent of piano student" loading="lazy" width="400" height="300">
                     </div>
                 </div>
                 <div class="review-item" itemscope itemtype="https://schema.org/Review">
                     <div class="review-image">
-                        <img src="review2.jpg" alt="Review from student about piano lessons" loading="lazy" width="400" height="300">
+                        <img src="review2.jpg" alt="Review from student about violin lessons" loading="lazy" width="400" height="300">
                     </div>
                 </div>
                 <div class="review-item" itemscope itemtype="https://schema.org/Review">
                     <div class="review-image">
-                        <img src="review3.jpg" alt="Positive feedback about violin lessons" loading="lazy" width="400" height="300">
+                        <img src="review3.jpg" alt="Positive feedback about piano lessons" loading="lazy" width="400" height="300">
                     </div>
                 </div>
                 <div class="review-item" itemscope itemtype="https://schema.org/Review">
@@ -434,7 +476,7 @@
                         <div class="simple-slider-container">
                             <div class="simple-slider" id="simpleSlider">
                                 <div class="slide active">
-                                    <img src="gallery.JPEG" alt="Music teaching studio in Muskoka" loading="lazy" width="600" height="400">
+                                    <img src="gallery.JPEG" alt="Music teaching studio in Bracebridge" loading="lazy" width="600" height="400">
                                 </div>
                                 <div class="slide">
                                     <img src="gallery2.JPEG" alt="Student receiving applause at recital" loading="lazy" width="600" height="400">
@@ -443,13 +485,13 @@
                                     <img src="gallery3.JPEG" alt="Stage performance at music festival" loading="lazy" width="600" height="400">
                                 </div>
                                 <div class="slide">
-                                    <img src="ga1.jpg" alt="Music performance in Bracebridge" loading="lazy" width="600" height="400">
+                                    <img src="ga1.jpg" alt="Piano performance in Bracebridge" loading="lazy" width="600" height="400">
                                 </div>
                                 <div class="slide">
-                                    <img src="ga2.jpg" alt="Violin performance in Huntsville" loading="lazy" width="600" height="400">
+                                    <img src="ga2.jpg" alt="Violin performance in Muskoka" loading="lazy" width="600" height="400">
                                 </div>
                                 <div class="slide">
-                                    <img src="ga3.jpg" alt="Piano recital in Gravenhurst" loading="lazy" width="600" height="400">
+                                    <img src="ga3.jpg" alt="Piano recital in Muskoka" loading="lazy" width="600" height="400">
                                 </div>
                             </div>
                             <div class="slider-controls">
@@ -478,7 +520,7 @@
                     <div class="video-container">
                         <h3><i class="fab fa-youtube"></i> Students' Performances</h3>
                         <div class="video-wrapper">
-                            <iframe width="560" height="315" src="https://www.youtube.com/embed/pqMkffZ2uqU?si=OurHUFpvg8sgQ6Ed" title="YouTube video player - Music student performance" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                            <iframe width="560" height="315" src="https://www.youtube.com/embed/pqMkffZ2uqU?si=OurHUFpvg8sgQ6Ed" title="YouTube video player - Piano student performance" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                         </div> <br>
                         <div class="video-wrapper">
                             <iframe width="560" height="315" src="https://www.youtube.com/embed/WvDV6-mGYcg?si=02NGbIMUr3hLAwEf" title="YouTube video player - Violin student performance" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
@@ -499,9 +541,11 @@
                 <div class="contact-info">
                     <h3><i class="fas fa-address-card"></i> Contact Information</h3>
                     <p><i class="fas fa-envelope"></i> <strong>Email:</strong> <a href="mailto:annabobylyova@gmail.com">annabobylyova@gmail.com</a></p>
-                    <p><i class="fas fa-map-marker-alt"></i> <strong>Locations:</strong> Bracebridge (downtown), Huntsville, Gravenhurst</p>
+                    <p><i class="fas fa-map-marker-alt"></i> <strong>Studio Address:</strong> 14 Manitoba Street, Bracebridge, ON</p>
+                    <p><i class="fas fa-car"></i> <strong>Service Area:</strong> In-home lessons within 40km radius of Bracebridge</p>
                     <p><i class="fas fa-clock"></i> <strong>Availability:</strong> Weekdays & Weekends, flexible scheduling</p>
                     <p><i class="fas fa-music"></i> <strong>Studio:</strong> Shine On Stage Music Lessons</p>
+                    <p><i class="fas fa-phone"></i> <strong>Phone:</strong> <a href="tel:+14379873848">+1 (437) 987-3848</a></p>
                     <div class="whatsapp">
                         <a href="https://wa.me/+14379873848?text=Hello%20Anna,%20I'm%20interested%20in%20music%20lessons%20at%20Shine%20On%20Stage!" class="btn-whatsapp" target="_blank">
                             <i class="fab fa-whatsapp"></i> Message on WhatsApp
@@ -512,22 +556,33 @@
                 <form class="contact-form" id="contactForm">
                     <h3><i class="fas fa-paper-plane"></i> Send a Message</h3>
                     <div class="form-group">
-                        <input type="text" placeholder="Your Name" required>
+                        <input type="text" placeholder="Your Name *" name="name" required>
                     </div>
                     <div class="form-group">
-                        <input type="email" placeholder="Your Email" required>
+                        <input type="email" placeholder="Your Email *" name="email" required>
                     </div>
                     <div class="form-group">
-                        <select required>
-                            <option value="" disabled selected>Select Instrument</option>
-                            <option value="piano">Piano</option>
-                            <option value="violin">Violin</option>
+                        <input type="tel" placeholder="Your Phone Number *" name="phone" required>
+                    </div>
+                    <div class="form-group">
+                        <select name="instrument" required>
+                            <option value="" disabled selected>Select Instrument *</option>
+                            <option value="piano">Piano Lessons</option>
+                            <option value="violin">Violin Lessons</option>
                             <option value="group">Group Lesson</option>
                             <option value="children">Music for Young Children</option>
                         </select>
                     </div>
                     <div class="form-group">
-                        <textarea rows="5" placeholder="Your Message (e.g., preferred schedule, student age, goals)"></textarea>
+                        <select name="location" required>
+                            <option value="" disabled selected>Preferred Location *</option>
+                            <option value="studio">Studio - 14 Manitoba St, Bracebridge</option>
+                            <option value="in-home">In-Home Lesson (within 40km radius)</option>
+                            <option value="online">Online Lesson</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <textarea rows="5" placeholder="Your Message (e.g., preferred schedule, student age, goals)" name="message"></textarea>
                     </div>
                     <button type="submit" class="btn btn-primary">Send Message</button>
                 </form>
@@ -542,6 +597,9 @@
                 <div class="footer-logo">
                     <h3><i class="fas fa-star"></i> Shine On Stage</h3>
                     <p>Music Education That Inspires Confidence</p>
+                    <p class="footer-address">
+                        <i class="fas fa-map-marker-alt"></i> 14 Manitoba Street, Bracebridge, ON
+                    </p>
                 </div>
                 <div class="footer-links">
                     <a href="#home" title="Home">Home</a>
@@ -557,169 +615,18 @@
                 </div>
             </div>
             <p class="copyright">&copy; 2024 Shine On Stage Music Lessons. All rights reserved. | Designed with passion for music education.</p>
-            <p class="seo-note">Serving Bracebridge, Huntsville, Gravenhurst and all of Muskoka with professional music lessons.</p>
+            <p class="seo-note">
+                <i class="fas fa-map-marker-alt"></i> Professional piano and violin lessons in Bracebridge, Muskoka. 
+                Serving Bracebridge and surrounding areas within 40km radius.
+            </p>
+            <p class="seo-note">
+                <i class="fas fa-search"></i> Piano teacher Bracebridge | Violin teacher Bracebridge | Music lessons Muskoka
+            </p>
         </div>
     </footer>
 
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Modal functionality
-            const modal = document.getElementById('bookingModal');
-            const bookLessonBtn = document.getElementById('bookLessonBtn');
-            const closeModal = document.getElementById('closeModal');
-            const bookingForm = document.getElementById('lessonBookingForm');
-            const successMessage = document.getElementById('successMessage');
-            const bookingFormContainer = document.getElementById('bookingForm');
-            const userEmailSpan = document.getElementById('userEmail');
-            
-            // Open modal when clicking "Book a Lesson"
-            bookLessonBtn.addEventListener('click', function(e) {
-                e.preventDefault();
-                modal.style.display = 'flex';
-                document.body.style.overflow = 'hidden';
-            });
-            
-            // Close modal when clicking X
-            closeModal.addEventListener('click', function() {
-                modal.style.display = 'none';
-                document.body.style.overflow = 'auto';
-            });
-            
-            // Close modal when clicking outside
-            window.addEventListener('click', function(e) {
-                if (e.target === modal) {
-                    modal.style.display = 'none';
-                    document.body.style.overflow = 'auto';
-                }
-            });
-            
-            // Close modal with Escape key
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape' && modal.style.display === 'flex') {
-                    modal.style.display = 'none';
-                    document.body.style.overflow = 'auto';
-                }
-            });
-            
-            // Form submission
-            bookingForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                // Get form data
-                const formData = new FormData(bookingForm);
-                const data = Object.fromEntries(formData);
-                
-                // Display success message
-                bookingFormContainer.style.display = 'none';
-                successMessage.style.display = 'block';
-                userEmailSpan.textContent = data.email;
-                
-                // Prepare email data (for demonstration)
-                const emailData = {
-                    to: 'annabobylyova@gmail.com',
-                    subject: `New Lesson Booking Request from ${data.studentName}`,
-                    body: `Student: ${data.studentName}
-Age: ${data.studentAge}
-Email: ${data.email}
-Phone: ${data.phone}
-Instrument: ${data.instrument}
-Location: ${data.location}
-Experience: ${data.experience}
-Goals: ${data.goals || 'Not specified'}
-Schedule: ${data.schedule || 'Not specified'}`
-                };
-                
-                // Log email data (in production, this would be sent to a backend)
-                console.log('Booking request:', emailData);
-                
-                // Reset form after 5 seconds and close modal
-                setTimeout(function() {
-                    bookingForm.reset();
-                    bookingFormContainer.style.display = 'block';
-                    successMessage.style.display = 'none';
-                    modal.style.display = 'none';
-                    document.body.style.overflow = 'auto';
-                }, 5000);
-            });
-            
-            // Google Maps functionality for location badges
-            const bracebridgeBtn = document.getElementById('bracebridgeMap');
-            const huntsvilleBtn = document.getElementById('huntsvilleMap');
-            const gravenhurstBtn = document.getElementById('gravenhurstMap');
-            bracebridgeBtn.addEventListener('click', function() {
-                window.open('https://www.google.com/maps/place/Bracebridge,+ON/', '_blank');
-            });
-            
-            huntsvilleBtn.addEventListener('click', function() {
-                window.open('https://www.google.com/maps/place/Huntsville,+ON/', '_blank');
-            });
-            gravenhurstBtn.addEventListener('click', function() {
-                window.open('https://www.google.com/maps/place/Gravenhurst,+ON/', '_blank');
-            });
-            
-            // Simple slider functionality
-            const slider = document.getElementById('simpleSlider');
-            const slides = slider.querySelectorAll('.slide');
-            const dots = document.querySelectorAll('.dot');
-            const prevBtn = document.querySelector('.slider-prev');
-            const nextBtn = document.querySelector('.slider-next');
-            let currentSlide = 0;
-            
-            function showSlide(n) {
-                // Reset all slides
-                slides.forEach(slide => slide.classList.remove('active'));
-                dots.forEach(dot => dot.classList.remove('active'));
-                
-                // Handle wrap-around
-                if (n >= slides.length) currentSlide = 0;
-                if (n < 0) currentSlide = slides.length - 1;
-                
-                // Show current slide
-                slides[currentSlide].classList.add('active');
-                dots[currentSlide].classList.add('active');
-            }
-            
-            prevBtn.addEventListener('click', function() {
-                currentSlide--;
-                showSlide(currentSlide);
-            });
-            
-            nextBtn.addEventListener('click', function() {
-                currentSlide++;
-                showSlide(currentSlide);
-            });
-            
-            // Dot navigation
-            dots.forEach((dot, index) => {
-                dot.addEventListener('click', function() {
-                    currentSlide = index;
-                    showSlide(currentSlide);
-                });
-            });
-            
-            // Auto-advance slider
-            setInterval(function() {
-                currentSlide++;
-                showSlide(currentSlide);
-            }, 5000);
-            
-            // Mobile menu toggle
-            const menuToggle = document.getElementById('menuToggle');
-            const navbar = document.querySelector('.navbar');
-            
-            menuToggle.addEventListener('click', function() {
-                navbar.classList.toggle('active');
-            });
-            
-            // Close mobile menu when clicking a link
-            document.querySelectorAll('.navbar a').forEach(link => {
-                link.addEventListener('click', function() {
-                    navbar.classList.remove('active');
-                });
-            });
-        });
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>

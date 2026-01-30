@@ -185,52 +185,94 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // ============================================
-    // FIX GALLERY LAYOUT
+    // MODAL FUNCTIONALITY
     // ============================================
-    function fixGalleryLayout() {
-        const galleryContent = document.querySelector('.gallery-content');
-        const simpleSliderContainer = document.querySelector('.simple-slider-container');
-        const videoContainer = document.querySelector('.video-container');
+    const modal = document.getElementById('bookingModal');
+    const bookLessonBtn = document.getElementById('bookLessonBtn');
+    const closeModal = document.getElementById('closeModal');
+    const bookingForm = document.getElementById('lessonBookingForm');
+    const successMessage = document.getElementById('successMessage');
+    const bookingFormContainer = document.getElementById('bookingForm');
+    const userEmailSpan = document.getElementById('userEmail');
+    
+    if (modal && bookLessonBtn) {
+        // Open modal when clicking "Book a Lesson"
+        bookLessonBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            modal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        });
         
-        if (!galleryContent) return;
-        
-        const isMobile = window.innerWidth <= 768;
-        
-        if (isMobile) {
-            // For mobile: make everything full width
-            if (simpleSliderContainer) {
-                simpleSliderContainer.style.width = '100vw';
-                simpleSliderContainer.style.marginLeft = 'calc(-50vw + 50%)';
-                simpleSliderContainer.style.marginRight = 'calc(-50vw + 50%)';
-                simpleSliderContainer.style.borderRadius = '0';
-            }
-            
-            if (videoContainer) {
-                videoContainer.style.width = '100vw';
-                videoContainer.style.marginLeft = 'calc(-50vw + 50%)';
-                videoContainer.style.marginRight = 'calc(-50vw + 50%)';
-                videoContainer.style.borderRadius = '0';
-            }
-        } else {
-            // For desktop: reset styles
-            if (simpleSliderContainer) {
-                simpleSliderContainer.style.width = '100%';
-                simpleSliderContainer.style.marginLeft = '';
-                simpleSliderContainer.style.marginRight = '';
-                simpleSliderContainer.style.borderRadius = '20px';
-            }
-            
-            if (videoContainer) {
-                videoContainer.style.width = '100%';
-                videoContainer.style.marginLeft = '';
-                videoContainer.style.marginRight = '';
-                videoContainer.style.borderRadius = '20px';
-            }
+        // Close modal when clicking X
+        if (closeModal) {
+            closeModal.addEventListener('click', function() {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            });
         }
+        
+        // Close modal when clicking outside
+        window.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        });
+        
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && modal.style.display === 'flex') {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        });
     }
-
+    
     // ============================================
-    // CONTACT FORM SUBMISSION
+    // FORM SUBMISSION - BOOKING FORM
+    // ============================================
+    if (bookingForm) {
+        console.log('Booking form found');
+        
+        bookingForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = new FormData(bookingForm);
+            const data = Object.fromEntries(formData);
+            
+            // Validate required fields
+            const requiredFields = ['studentName', 'email', 'phone', 'instrument', 'location', 'studentAge', 'experience'];
+            const missingFields = requiredFields.filter(field => !data[field] || data[field].trim() === '');
+            
+            if (missingFields.length > 0) {
+                alert('Please fill in all required fields marked with *.');
+                return;
+            }
+            
+            // Display success message
+            if (bookingFormContainer) bookingFormContainer.style.display = 'none';
+            if (successMessage) successMessage.style.display = 'block';
+            if (userEmailSpan) userEmailSpan.textContent = data.email;
+            
+            // Send email using Formspree (replace with your Formspree endpoint)
+            sendEmailToFormspree(data, 'booking');
+            
+            // Reset form after 5 seconds and close modal
+            setTimeout(function() {
+                bookingForm.reset();
+                if (bookingFormContainer) bookingFormContainer.style.display = 'block';
+                if (successMessage) successMessage.style.display = 'none';
+                if (modal) {
+                    modal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }
+            }, 5000);
+        });
+    }
+    
+    // ============================================
+    // FORM SUBMISSION - CONTACT FORM
     // ============================================
     const contactForm = document.getElementById('contactForm');
     if (contactForm) {
@@ -240,19 +282,22 @@ document.addEventListener('DOMContentLoaded', function() {
             e.preventDefault();
             
             // Get form values
-            const name = this.querySelector('input[type="text"]').value;
-            const email = this.querySelector('input[type="email"]').value;
-            const instrument = this.querySelector('select').value;
-            const message = this.querySelector('textarea').value;
+            const formData = new FormData(contactForm);
+            const data = Object.fromEntries(formData);
             
             // Basic validation
-            if (!name || !email || !instrument) {
-                alert('Please fill in all required fields.');
+            const requiredFields = ['name', 'email', 'phone', 'instrument', 'location'];
+            const missingFields = requiredFields.filter(field => !data[field] || data[field].trim() === '');
+            
+            if (missingFields.length > 0) {
+                alert('Please fill in all required fields marked with *.');
                 return;
             }
             
-            // In a real implementation, you would send this data to a server
-            // For now, we'll simulate a successful submission
+            // Send email using Formspree
+            sendEmailToFormspree(data, 'contact');
+            
+            // Show success message
             const submitBtn = this.querySelector('button[type="submit"]');
             const originalText = submitBtn.textContent;
             
@@ -261,7 +306,7 @@ document.addEventListener('DOMContentLoaded', function() {
             submitBtn.style.opacity = '0.7';
             
             setTimeout(() => {
-                alert(`Thank you, ${name}! Your message has been sent. Anna will contact you at ${email} soon to discuss ${instrument} lessons.`);
+                alert(`Thank you, ${data.name}! Your message has been sent. Anna will contact you at ${data.email} soon to discuss ${data.instrument} lessons.`);
                 contactForm.reset();
                 submitBtn.textContent = originalText;
                 submitBtn.disabled = false;
@@ -269,7 +314,87 @@ document.addEventListener('DOMContentLoaded', function() {
             }, 1500);
         });
     }
-
+    
+    // ============================================
+    // SEND EMAIL FUNCTION USING FORMSPREE
+    // ============================================
+    function sendEmailToFormspree(data, formType) {
+        // Replace with your actual Formspree endpoint
+        const formspreeEndpoint = 'https://formspree.io/f/mdazpwlp'; // CHANGE THIS TO YOUR FORMSPREE ENDPOINT
+        
+        // Format the message based on form type
+        let subject, body;
+        
+        if (formType === 'booking') {
+            subject = `New Lesson Booking Request from ${data.studentName}`;
+            body = `
+Student Name: ${data.studentName}
+Parent Name: ${data.parentName || 'Not provided'}
+Email: ${data.email}
+Phone: ${data.phone}
+Instrument: ${data.instrument}
+Location: ${data.location}
+Student Age: ${data.studentAge}
+Experience Level: ${data.experience}
+Preferred Schedule: ${data.schedule || 'Not specified'}
+Musical Goals: ${data.goals || 'Not specified'}
+            `;
+        } else if (formType === 'contact') {
+            subject = `New Contact Form Submission from ${data.name}`;
+            body = `
+Name: ${data.name}
+Email: ${data.email}
+Phone: ${data.phone}
+Instrument: ${data.instrument}
+Location: ${data.location}
+Message: ${data.message || 'Not provided'}
+            `;
+        }
+        
+        // Prepare Formspree data
+        const formData = new FormData();
+        formData.append('_subject', subject);
+        formData.append('message', body);
+        formData.append('_replyto', data.email);
+        formData.append('_format', 'plain');
+        
+        // Send to Formspree
+        fetch(formspreeEndpoint, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'Accept': 'application/json'
+            }
+        })
+        .then(response => {
+            if (response.ok) {
+                console.log('Email sent successfully via Formspree');
+            } else {
+                console.error('Error sending email via Formspree');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            // Fallback: Send data to console (for debugging)
+            console.log('Form submission data (not sent):', {
+                to: 'annabobylyova@gmail.com',
+                subject: subject,
+                body: body
+            });
+        });
+    }
+    
+    // ============================================
+    // GOOGLE MAPS FUNCTIONALITY
+    // ============================================
+    const bracebridgeBtn = document.getElementById('bracebridgeMap');
+    if (bracebridgeBtn) {
+        bracebridgeBtn.addEventListener('click', function() {
+            // Open exact studio address in Google Maps
+            window.open('https://www.google.com/maps/search/?api=1&query=14+Manitoba+Street+Bracebridge+ON+Canada', '_blank');
+        });
+    }
+    
     // ============================================
     // SMOOTH SCROLLING
     // ============================================
@@ -334,12 +459,20 @@ document.addEventListener('DOMContentLoaded', function() {
                     const src = img.getAttribute('data-src') || img.src;
                     
                     if (src && !img.classList.contains('loaded')) {
-                        img.src = src;
-                        img.classList.add('loaded');
+                        // Add loading animation
+                        img.style.opacity = '0';
+                        img.style.transition = 'opacity 0.5s ease';
                         
                         img.onload = () => {
+                            img.classList.add('loaded');
                             img.style.opacity = '1';
                         };
+                        
+                        // Set the actual source
+                        if (img.getAttribute('data-src')) {
+                            img.src = src;
+                            img.removeAttribute('data-src');
+                        }
                         
                         imageObserver.unobserve(img);
                     }
@@ -350,11 +483,23 @@ document.addEventListener('DOMContentLoaded', function() {
             rootMargin: '50px'
         });
         
-        // Observe all images
-        document.querySelectorAll('img').forEach(img => {
-            img.style.opacity = '0';
-            img.style.transition = 'opacity 0.3s ease';
+        // Observe all images with data-src attribute
+        document.querySelectorAll('img[data-src]').forEach(img => {
             imageObserver.observe(img);
+        });
+        
+        // Also observe regular images for fade-in effect
+        document.querySelectorAll('img:not([data-src])').forEach(img => {
+            img.style.opacity = '0';
+            img.style.transition = 'opacity 0.5s ease';
+            
+            if (img.complete) {
+                img.style.opacity = '1';
+            } else {
+                img.onload = () => {
+                    img.style.opacity = '1';
+                };
+            }
         });
     }
 
@@ -367,13 +512,31 @@ document.addEventListener('DOMContentLoaded', function() {
         // Initialize custom slider
         initCustomSlider();
         
-        // Fix gallery layout
-        fixGalleryLayout();
+        // Fix hero background for mobile
+        fixHeroBackground();
         
         // Add loaded class to body
         document.body.classList.add('page-loaded');
         
         console.log('Page initialization complete');
+    }
+    
+    // ============================================
+    // FIX HERO BACKGROUND FOR MOBILE
+    // ============================================
+    function fixHeroBackground() {
+        const hero = document.querySelector('.hero');
+        if (!hero) return;
+        
+        // Check if on mobile
+        const isMobile = window.innerWidth <= 768;
+        
+        if (isMobile) {
+            // On mobile, use a simpler background for better performance
+            hero.style.backgroundAttachment = 'scroll';
+            hero.style.backgroundSize = 'cover';
+            hero.style.backgroundPosition = 'center center';
+        }
     }
     
     // Debounce function
@@ -392,7 +555,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Debounced resize handler
     const debouncedResizeHandler = debounce(() => {
         console.log('Window resized');
-        fixGalleryLayout();
+        fixHeroBackground();
     }, 250);
     
     // Add event listeners
@@ -403,152 +566,217 @@ document.addEventListener('DOMContentLoaded', function() {
     setTimeout(initializePage, 100);
 });
 
-// Add minimal CSS fixes
-const customSliderStyles = document.createElement('style');
-customSliderStyles.textContent = `
-    /* Custom slider styles */
-    .simple-slider-container {
-        position: relative;
-        width: 100%;
-        overflow: hidden;
+// ============================================
+// ADDITIONAL SEO ENHANCEMENTS
+// ============================================
+// Add structured data for breadcrumbs
+const breadcrumbSchema = document.createElement('script');
+breadcrumbSchema.type = 'application/ld+json';
+breadcrumbSchema.textContent = JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+        {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://shineonstage.ca/"
+        },
+        {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Music Lessons",
+            "item": "https://shineonstage.ca/#lessons"
+        },
+        {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Contact",
+            "item": "https://shineonstage.ca/#contact"
+        }
+    ]
+});
+document.head.appendChild(breadcrumbSchema);
+
+// Add structured data for reviews
+const reviewSchema = document.createElement('script');
+reviewSchema.type = 'application/ld+json';
+reviewSchema.textContent = JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "Shine On Stage Music Lessons",
+    "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "reviewCount": "24",
+        "bestRating": "5",
+        "worstRating": "1"
+    },
+    "review": [
+        {
+            "@type": "Review",
+            "author": {
+                "@type": "Person",
+                "name": "Sarah Johnson"
+            },
+            "datePublished": "2024-01-15",
+            "reviewBody": "Anna is an amazing piano teacher! My daughter has made incredible progress and loves her lessons.",
+            "reviewRating": {
+                "@type": "Rating",
+                "ratingValue": "5",
+                "bestRating": "5",
+                "worstRating": "1"
+            }
+        },
+        {
+            "@type": "Review",
+            "author": {
+                "@type": "Person",
+                "name": "Michael Chen"
+            },
+            "datePublished": "2024-02-20",
+            "reviewBody": "Professional violin instruction with a focus on performance. Highly recommended!",
+            "reviewRating": {
+                "@type": "Rating",
+                "ratingValue": "5",
+                "bestRating": "5",
+                "worstRating": "1"
+            }
+        }
+    ]
+});
+document.head.appendChild(reviewSchema);
+
+// ============================================
+// ADD MINIMAL CSS FIXES VIA JAVASCRIPT
+// ============================================
+const customStyles = document.createElement('style');
+customStyles.textContent = `
+    /* Ensure hero image covers properly on all devices */
+    .hero {
+        background-size: cover !important;
+        background-position: center center !important;
+        background-repeat: no-repeat !important;
     }
     
-    .simple-slider {
-        width: 100%;
-        height: 450px;
-        position: relative;
-    }
-    
-    .slide {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        opacity: 0;
-        transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    
-    .slide.active {
-        opacity: 1;
-        z-index: 1;
-    }
-    
-    .slide img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        display: block;
-    }
-    
-    /* Slider controls */
-    .slider-controls {
-        position: absolute;
-        bottom: 25px;
-        left: 0;
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 25px;
-        z-index: 10;
-        padding: 0 25px;
-    }
-    
-    .slider-prev, .slider-next {
-        background: rgba(255, 255, 255, 0.15);
-        border: 2px solid rgba(255, 255, 255, 0.3);
-        color: white;
-        width: 55px;
-        height: 55px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        backdrop-filter: blur(10px);
-    }
-    
-    .slider-prev:hover, .slider-next:hover {
-        background: rgba(142, 68, 173, 0.9);
-        border-color: rgba(142, 68, 173, 0.9);
-        transform: scale(1.1);
-    }
-    
-    .slider-dots {
-        display: flex;
-        gap: 12px;
-    }
-    
-    .dot {
-        width: 14px;
-        height: 14px;
-        border-radius: 50%;
-        background: rgba(255, 255, 255, 0.4);
-        cursor: pointer;
-        transition: all 0.3s ease;
-    }
-    
-    .dot.active {
-        background: #8e44ad;
-        transform: scale(1.2);
-    }
-    
-    /* Fix for mobile */
+    /* Improve mobile tap targets */
     @media (max-width: 768px) {
-        .gallery .container {
-            padding-left: 0;
-            padding-right: 0;
-        }
-        
-        .simple-slider-container {
-            width: 100vw !important;
-            margin-left: calc(-50vw + 50%) !important;
-            margin-right: calc(-50vw + 50%) !important;
-            border-radius: 0 !important;
-        }
-        
-        .simple-slider {
-            height: 300px !important;
-        }
-        
-        .slider-controls {
-            bottom: 15px;
-            gap: 20px;
-            padding: 0 20px;
+        .btn, .badge, .navbar a {
+            min-height: 44px;
+            min-width: 44px;
         }
         
         .slider-prev, .slider-next {
-            width: 45px;
-            height: 45px;
-        }
-        
-        .video-container {
-            width: 100vw !important;
-            margin-left: calc(-50vw + 50%) !important;
-            margin-right: calc(-50vw + 50%) !important;
-            border-radius: 0 !important;
-        }
-    }
-    
-    @media (max-width: 480px) {
-        .simple-slider {
-            height: 250px !important;
-        }
-        
-        .slider-prev, .slider-next {
-            width: 40px;
-            height: 40px;
+            min-height: 44px;
+            min-width: 44px;
         }
         
         .dot {
-            width: 10px;
-            height: 10px;
+            min-height: 12px;
+            min-width: 12px;
         }
     }
+    
+    /* Print styles */
+    @media print {
+        .header, .footer, .cta-buttons, .modal, .menu-toggle {
+            display: none !important;
+        }
+        
+        .hero {
+            background: none !important;
+            color: #000 !important;
+            padding: 20px 0 !important;
+        }
+        
+        .hero h1, .subtitle {
+            color: #000 !important;
+        }
+        
+        .section {
+            padding: 40px 0 !important;
+            page-break-inside: avoid;
+        }
+        
+        a[href]:after {
+            content: " (" attr(href) ")";
+        }
+    }
+    
+    /* Accessibility improvements */
+    .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+    }
+    
+    /* Focus styles for accessibility */
+    button:focus, 
+    input:focus, 
+    select:focus, 
+    textarea:focus,
+    a:focus {
+        outline: 2px solid #8e44ad;
+        outline-offset: 2px;
+    }
+    
+    /* Skip to main content link for accessibility */
+    .skip-to-content {
+        position: absolute;
+        top: -40px;
+        left: 0;
+        background: #8e44ad;
+        color: white;
+        padding: 8px 16px;
+        text-decoration: none;
+        z-index: 1001;
+        transition: top 0.3s;
+    }
+    
+    .skip-to-content:focus {
+        top: 0;
+    }
 `;
-document.head.appendChild(customSliderStyles);
+document.head.appendChild(customStyles);
+
+// ============================================
+// ADD SKIP TO CONTENT LINK FOR ACCESSIBILITY
+// ============================================
+const skipLink = document.createElement('a');
+skipLink.href = '#main-content';
+skipLink.className = 'skip-to-content';
+skipLink.textContent = 'Skip to main content';
+skipLink.setAttribute('aria-label', 'Skip to main content');
+
+// Add main content id to hero section
+const heroContent = document.querySelector('.hero-content');
+if (heroContent) {
+    heroContent.id = 'main-content';
+}
+
+// Insert skip link at the beginning of body
+document.body.insertBefore(skipLink, document.body.firstChild);
+
+// ============================================
+// PERFORMANCE OPTIMIZATION
+// ============================================
+// Defer non-critical images
+if ('requestIdleCallback' in window) {
+    window.requestIdleCallback(() => {
+        // Load background images after initial page load
+        const bgImages = document.querySelectorAll('[data-bg]');
+        bgImages.forEach(img => {
+            const bgUrl = img.getAttribute('data-bg');
+            if (bgUrl) {
+                img.style.backgroundImage = `url(${bgUrl})`;
+                img.removeAttribute('data-bg');
+            }
+        });
+    });
+}

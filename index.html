@@ -136,100 +136,6 @@
     <link rel="icon" type="image/x-icon" href="https://img.icons8.com/color/48/000000/music-notes.png">
 </head>
 <body>
-    <!-- Modal for Booking -->
-    <div class="modal" id="bookingModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3><i class="fas fa-calendar-check"></i> Book Your First Lesson</h3>
-                <button class="close-modal" id="closeModal" aria-label="Close modal">&times;</button>
-            </div>
-            
-            <div class="modal-body">
-                <div class="modal-form" id="bookingForm">
-                    <form id="lessonBookingForm">
-                        <div class="form-group">
-                            <label for="studentName">Student Name *</label>
-                            <input type="text" id="studentName" name="studentName" required placeholder="Enter student's full name">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="parentName">Parent Name (if applicable)</label>
-                            <input type="text" id="parentName" name="parentName" placeholder="Enter parent's name">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="email">Email Address *</label>
-                            <input type="email" id="email" name="email" required placeholder="your@email.com">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="phone">Phone Number *</label>
-                            <input type="tel" id="phone" name="phone" required placeholder="(123) 456-7890">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="instrument">Instrument *</label>
-                            <select id="instrument" name="instrument" required>
-                                <option value="" disabled selected>Select an instrument</option>
-                                <option value="piano">Piano</option>
-                                <option value="violin">Violin</option>
-                                <option value="group">Group Lesson</option>
-                                <option value="children">Music for Young Children (3-6 years)</option>
-                            </select>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="location">Preferred Location *</label>
-                            <select id="location" name="location" required>
-                                <option value="" disabled selected>Select location</option>
-                                <option value="studio">Studio - 14 Manitoba St, Bracebridge</option>
-                                <option value="in-home">In-Home Lesson (within 40km radius)</option>
-                                <option value="online">Online Lesson</option>
-                            </select>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="studentAge">Student Age *</label>
-                            <input type="number" id="studentAge" name="studentAge" required placeholder="e.g., 8" min="3" max="99">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="experience">Experience Level *</label>
-                            <select id="experience" name="experience" required>
-                                <option value="" disabled selected>Select level</option>
-                                <option value="beginner">Beginner (first time)</option>
-                                <option value="some">Some experience (1-2 years)</option>
-                                <option value="intermediate">Intermediate (2-5 years)</option>
-                                <option value="advanced">Advanced (5+ years)</option>
-                            </select>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="schedule">Preferred Days/Times</label>
-                            <textarea id="schedule" name="schedule" placeholder="e.g., Weekdays after 4pm, Saturday mornings"></textarea>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="goals">Musical Goals</label>
-                            <textarea id="goals" name="goals" placeholder="What would you like to achieve? (e.g., perform in recital, learn specific pieces, prepare for exams)"></textarea>
-                        </div>
-                        
-                        <button type="submit" class="modal-submit">
-                            <i class="fas fa-paper-plane"></i> Send Booking Request
-                        </button>
-                    </form>
-                </div>
-                
-                <div class="modal-message" id="successMessage">
-                    <i class="fas fa-check-circle"></i>
-                    <h4>Booking Request Sent!</h4>
-                    <p>Thank you for your interest in lessons! Anna will contact you within 24-48 hours to confirm your booking.</p>
-                    <p>A confirmation email has been sent to <span id="userEmail"></span></p>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- Header & Navigation -->
     <header class="header">
         <div class="container">
@@ -534,8 +440,8 @@
         </div>
     </section>
 
-    <!-- Contact Section -->
-    <section class="section contact" id="contact">
+    <!-- Contact Section - Добавил id="contact-info" -->
+    <section class="section contact" id="contact" id="contact-info">
         <div class="container">
             <h2 class="section-title">Get In Touch for Music Lessons</h2>
             <p class="section-subtitle">Ready to start your musical journey? Contact me to schedule your first lesson!</p>
@@ -629,6 +535,31 @@
 
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+    <script>
+        // Добавил скрипт для кнопки Book Lesson
+        document.addEventListener('DOMContentLoaded', function() {
+            const bookLessonBtn = document.getElementById('bookLessonBtn');
+            
+            if (bookLessonBtn) {
+                bookLessonBtn.addEventListener('click', function() {
+                    // Прокручиваем к секции с контактной информацией
+                    const contactSection = document.getElementById('contact-info') || document.getElementById('contact');
+                    if (contactSection) {
+                        contactSection.scrollIntoView({ 
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            }
+            
+            // Убедимся, что элемент "skip-to-content" отсутствует
+            const skipToContent = document.querySelector('a.skip-to-content');
+            if (skipToContent) {
+                skipToContent.remove();
+            }
+        });
+    </script>
     <script src="script.js"></script>
 </body>
 </html>

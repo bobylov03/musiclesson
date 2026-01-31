@@ -1942,7 +1942,9 @@ body {
     .feature-content p {
         font-size: 0.9rem;
     }
-    
+    .whatsapp{
+        margin-right: 20px;
+    }
     /* Gallery Small Mobile - FIXED */
     .gallery-columns {
         gap: 30px;
@@ -2031,3 +2033,5 @@ body {
         font-size: 1rem;
     }
 }
+
+.whatsapp
